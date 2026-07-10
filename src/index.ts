@@ -1,66 +1,65 @@
-type Meal = { 
-    name: string; 
-    calories: number;
-    protein: number;
-    timestamp: Date;
+import type { Food } from "./models/Food.js";
+import type { Exercise } from "./models/Exercise.js";
+import type {
+    WorkoutSession,
+    ExerciseSet,
+} from "./models/WorkoutSession.js";
+
+const chickenBreast: Food = {
+    id: 1,
+    name: "Chicken Breast",
+    servingSize: 100,
+    servingUnit: "g",
+    calories: 165,
+    protein: 31,
+    carbs: 0,
+    fat: 3.6,
+    fiber: 0,
+    sugar: 0,
+    sodium: 74,
 };
 
-function isSameDay(a: Date, b: Date): boolean {
-    return (
-        a.getFullYear() === b.getFullYear() &&
-        a.getMonth() === b.getMonth() &&
-        a.getDate() === b.getDate()
-    );
-}
+const benchPress: Exercise = {
+    id: 1,
+    name: "Bench Press",
+    category: "strength",
+    muscleGroup: "chest",
+    instructions: "Lower the bar under control and press upward.",
+};
 
-function getTotalCaloriesToday(meals: Meal[]): number {
-    const today = new Date();
-
-    return meals
-        .filter((meal) => isSameDay(meal.timestamp, today))
-        .reduce((total, meal) => total + meal.calories, 0);
-}
-
-function getTotalForDay(meals: Meal[], day: Date, field: "calories" | "protein"): number {
-    return meals
-        .filter((meal) => isSameDay(meal.timestamp, day))
-        .reduce((total, meal) => total + meal[field], 0);
-}
-
-const meals: Meal[] = [
+const benchSets: ExerciseSet[] = [
     {
-        name: "Chicken Bowl",
-        calories: 650,
-        protein: 45,
-        timestamp: new Date(),
+        reps: 8,
+        weight: 185,
+        completed: true,
     },
     {
-        name: "Protein Shake",
-        calories: 220,
-        protein: 30,
-        timestamp: new Date(),
+        reps: 8,
+        weight: 185,
+        completed: true,
     },
     {
-        name: "Yesterday's Dinner",
-        calories: 700,
-        protein: 50,
-        timestamp: new Date(2026, 6, 8),
+        reps: 6,
+        weight: 185,
+        completed: true,
     },
 ];
 
-console.log("Calories today:", getTotalCaloriesToday(meals));
+const pushWorkout: WorkoutSession = {
+    id: 1,
+    name: "Monday Push Day",
+    workoutType: "push",
+    startedAt: new Date(),
+    caloriesBurned: 420,
+    averageHeartRate: 132,
+    notes: "Bench press felt strong.",
+    exercises: [
+        {
+            exercise: benchPress,
+            sets: benchSets,
+        },
+    ],
+};
 
-console.log(
-    "Calories for today:",
-    getTotalForDay(meals, new Date(), "calories")
-);
-
-console.log(
-    "Protein for today:",
-    getTotalForDay(meals, new Date(), "protein")
-);
-
-console.log(
-    "Calories for July 8, 2026:",
-    getTotalForDay(meals, new Date(2026, 6, 8), "calories")
-);
+console.log(chickenBreast);
+console.log(pushWorkout);

@@ -1,6 +1,6 @@
 import type { Exercise } from "./Exercise.js"
 
-export type WorkoutType = 
+export type WorkoutType = // export allows other files to use this type
     | "push"
     | "pull" 
     | "legs" 

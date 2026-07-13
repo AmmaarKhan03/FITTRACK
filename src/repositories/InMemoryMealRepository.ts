@@ -10,7 +10,7 @@ function isSameDay(a: Date, b: Date): boolean {
 }
 
 export class inMemoryMealRepository implements MealRepository {
-    private meals: Meal[] = []; 
+    private meals: Meal[] = []; // creates an array that is acting like a temporary databsae 
 
     add (meal: Meal): void {
         this.meals.push(meal); 

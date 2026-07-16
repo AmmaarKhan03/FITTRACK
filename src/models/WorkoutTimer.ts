@@ -20,7 +20,35 @@ export class WorkoutTimer {
         this.status = "running";
     }
 
+    pause(): void {
+        if (this.status !== "running") {
+            throw new Error("only a running timer can be paused");
+        }
+
+        this.pausedAt = new Date(); 
+        this.status = "paused";
+    }
+
+    resume(): void {
+        if (this.status !== "paused" || this.pausedAt === null) {
+            throw new Error("Only a paused timer can be resumed.");
+        }
+
+        const resumedAt = new Date();
+
+        const pausedDuration =
+            resumedAt.getTime() - this.pausedAt.getTime();
+
+        this.totalPausedMilliseconds += pausedDuration;
+        this.pausedAt = null;
+        this.status = "running";
+    }
+
     isRunning(): boolean {
         return this.status === "running";
+    }
+
+    isPaused(): boolean {
+        return this.status === "paused";
     }
 }

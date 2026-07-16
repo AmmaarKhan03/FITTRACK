@@ -6,6 +6,8 @@ import {
 } from "./models/Meal.js";
 import { InMemoryMealRepository } from "./repositories/InMemoryMealRepository.js";
 
+import { WorkoutTimer } from "./models/WorkoutTimer.js";
+
 const chickenBreast: Food = {
     id: 1,
     name: "Chicken Breast",
@@ -54,7 +56,3 @@ const mealRepository = new InMemoryMealRepository();
 
 const savedLunch = mealRepository.add(lunchInput);
 
-console.log("Saved lunch:", savedLunch);
-console.log("Generated ID:", savedLunch.id);
-console.log("Calories:", getMealCalories(savedLunch));
-console.log("Protein:", getMealProtein(savedLunch));

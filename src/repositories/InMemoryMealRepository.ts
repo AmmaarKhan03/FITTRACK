@@ -10,7 +10,7 @@ export class InMemoryMealRepository implements MealRepository { // we created a 
 
     // the rep begins with id = 1, when the fist meal is added id: this.nextId gives it id 1, then afterward it += 1, which auto increments it 
 
-    add (mealInput: Meal): Meal {  // this is considered a method, outside code must use these 
+    add (mealInput: CreateMealInput): Meal {  // this is considered a method, outside code must use these 
         const meal: Meal = {
             id: this.nextId, 
             ... mealInput,

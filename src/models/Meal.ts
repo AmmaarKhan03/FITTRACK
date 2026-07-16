@@ -18,9 +18,11 @@ export type Meal = {
     mealType: MealType;
     eatenAt: Date;
     items: MealItem[];
-    notes: string;
+    notes?: string;
 };
 
+export type CreateMealInput = Omit<Meal, "id">;  // omit is a built in ts utility type 
+// it means create a new type based on meal, but remove the id proeprty 
 
 export function getMealCalories(meal: Meal): number { // the parameter is meal and its type is Meal
     return meal.items.reduce(  // meal.items is an array we are accessing, reduce() loops through an array combine everyting into one final value

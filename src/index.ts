@@ -1,12 +1,10 @@
 import type { Food } from "./models/Food.js";
-import type { Exercise } from "./models/Exercise.js";
-import type {
-    WorkoutSession,
-    ExerciseSet,
-} from "./models/WorkoutSession.js";
 import {
-    getMealCalories, getMealProtein, type Meal, 
-} from "./models/Meal.js"
+    getMealCalories,
+    getMealProtein,
+    type CreateMealInput,
+} from "./models/Meal.js";
+import { InMemoryMealRepository } from "./repositories/InMemoryMealRepository.js";
 
 const chickenBreast: Food = {
     id: 1,
@@ -36,12 +34,11 @@ const whiteRice: Food = {
     sodium: 1,
 };
 
-const lunch: Meal = {
-    id: 1,
-    name: "chicken and rice",
-    mealType: "lunch", 
-    eatenAt: new Date(), 
-    items: [ 
+const lunchInput: CreateMealInput = {
+    name: "Chicken and Rice",
+    mealType: "lunch",
+    eatenAt: new Date(),
+    items: [
         {
             food: chickenBreast,
             servings: 2.5,
@@ -51,51 +48,13 @@ const lunch: Meal = {
             servings: 1.5,
         },
     ],
-    notes: "nothing",
 };
 
-const benchPress: Exercise = {
-    id: 1,
-    name: "Bench Press",
-    category: "strength",
-    muscleGroup: "chest",
-    instructions: "Lower the bar under control and press upward.",
-};
+const mealRepository = new InMemoryMealRepository();
 
-const benchSets: ExerciseSet[] = [
-    {
-        reps: 8,
-        weight: 185,
-        completed: true,
-    },
-    {
-        reps: 8,
-        weight: 185,
-        completed: true,
-    },
-    {
-        reps: 6,
-        weight: 185,
-        completed: true,
-    },
-];
+const savedLunch = mealRepository.add(lunchInput);
 
-const pushWorkout: WorkoutSession = {
-    id: 1,
-    name: "Monday Push Day",
-    workoutType: "push",
-    startedAt: new Date(),
-    caloriesBurned: 420,
-    averageHeartRate: 132,
-    notes: "Bench press felt strong.",
-    exercises: [
-        {
-            exercise: benchPress,
-            sets: benchSets,
-        },
-    ],
-};
-
-
-console.log("Meal calories:", getMealCalories(lunch));
-console.log("Meal protein:", getMealProtein(lunch));
+console.log("Saved lunch:", savedLunch);
+console.log("Generated ID:", savedLunch.id);
+console.log("Calories:", getMealCalories(savedLunch));
+console.log("Protein:", getMealProtein(savedLunch));

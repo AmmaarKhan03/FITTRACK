@@ -1,13 +1,15 @@
-import type { Meal } from "../models/Meal.js"; 
+import type { CreateMealInput, Meal } from "../models/Meal.js"; 
 
 export interface MealRepository { // this interface defines what any meal repo must be able to do 
-    add(meal: Meal): void; 
+    add(meal: CreateMealInput): void; 
 
     getAll(): Meal[];
 
     findById(id: number): Meal | undefined; 
 
-    getMealsForDays(day: Date): Meal[];
+    getMealsForDay(day: Date): Meal[];
+
+    update(meal: Meal): boolean;
 
     deleteById(id: number): Boolean;
 }

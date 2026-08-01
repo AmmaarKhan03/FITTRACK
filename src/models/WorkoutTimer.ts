@@ -44,6 +44,22 @@ export class WorkoutTimer {
         this.status = "running";
     }
 
+    stop(): void {
+        if (this.status !== "running" && this.pausedAt !== null) {
+            const stoppedAt = new Date();
+
+            const finalPausedDuration = 
+                stoppedAt.getTime() - this.pausedAt.getTime();
+
+            this.totalPausedMilliseconds += finalPausedDuration; 
+            this.pausedAt = null; 
+            this.endedAt = stoppedAt; 
+        } else {
+            this.endedAt = new Date();
+        }
+        this.status = "stopped"
+    }
+
     isRunning(): boolean {
         return this.status === "running";
     }

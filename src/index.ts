@@ -1,58 +1,18 @@
-import type { Food } from "./models/Food.js";
-import {
-    getMealCalories,
-    getMealProtein,
-    type CreateMealInput,
-} from "./models/Meal.js";
-import { InMemoryMealRepository } from "./repositories/InMemoryMealRepository.js";
-
 import { WorkoutTimer } from "./models/WorkoutTimer.js";
 
-const chickenBreast: Food = {
-    id: 1,
-    name: "Chicken Breast",
-    servingSize: 100,
-    servingUnit: "g",
-    calories: 165,
-    protein: 31,
-    carbs: 0,
-    fat: 3.6,
-    fiber: 0,
-    sugar: 0,
-    sodium: 74,
-};
+const workoutTimer = new WorkoutTimer();
 
-const whiteRice: Food = {
-    id: 2,
-    name: "White Rice",
-    servingSize: 100,
-    servingUnit: "g",
-    calories: 130,
-    protein: 2.7,
-    carbs: 28,
-    fat: 0.3,
-    fiber: 0.4,
-    sugar: 0.1,
-    sodium: 1,
-};
+workoutTimer.start();
 
-const lunchInput: CreateMealInput = {
-    name: "Chicken and Rice",
-    mealType: "lunch",
-    eatenAt: new Date(),
-    items: [
-        {
-            food: chickenBreast,
-            servings: 2.5,
-        },
-        {
-            food: whiteRice,
-            servings: 1.5,
-        },
-    ],
-};
+console.log("Running:", workoutTimer.isRunning());
+console.log("Paused:", workoutTimer.isPaused());
 
-const mealRepository = new InMemoryMealRepository();
+workoutTimer.pause();
 
-const savedLunch = mealRepository.add(lunchInput);
+console.log("Running after pause:", workoutTimer.isRunning());
+console.log("Paused after pause:", workoutTimer.isPaused());
 
+workoutTimer.resume();
+
+console.log("Running after resume:", workoutTimer.isRunning());
+console.log("Paused after resume:", workoutTimer.isPaused());
